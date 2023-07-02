@@ -25,13 +25,10 @@ router.post('/', async function (req, res, next) {
     const streamer = new Streamer(req.body);
     const savedStreamer = await streamer.save();
     var io = req.app.get('io');
-    console.log('Emitting streamerUpdate event:', savedStreamer);
     io.emit('streamerUpdate', {
       message: 'New streamer added!',
       updatedStreamers: [savedStreamer],
     });
-
-    console.log('New streamer added:', savedStreamer);
 
     res.json(savedStreamer);
   } catch (err) {

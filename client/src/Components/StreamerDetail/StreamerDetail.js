@@ -19,7 +19,6 @@ function StreamerDetail() {
       setStreamer(response.data);
     });
   }, [id]);
-  console.log(streamer);
   if (!streamer) {
     return null;
   }

@@ -11,7 +11,6 @@ const StreamerList = () => {
     const socket = io('http://localhost:3001', { autoConnect: true });
 
     socket.on('streamerUpdate', (data) => {
-      console.log('Received updated streamers:', data.updatedStreamers);
       if (data.message === 'New streamer added!') {
         setStreamers((prevStreamers) => {
           const newStreamers = [...prevStreamers, ...data.updatedStreamers];
@@ -27,11 +26,9 @@ const StreamerList = () => {
           return updatedStreamers.sort((a, b) => b.upvotes - a.upvotes);
         });
       }
-      console.log('Updated streamers state:', streamers);
     });
 
     axios.get('http://localhost:3001/streamers').then((response) => {
-      console.log('Initial streamers data:', response.data);
       const sortedStreamers = response.data.sort(
         (a, b) => b.upvotes - a.upvotes
       );
