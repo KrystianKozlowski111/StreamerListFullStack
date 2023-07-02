@@ -11,6 +11,15 @@ import {
 } from './StreamerBox.style';
 
 const StreamerBox = ({ streamer, handleVote }) => {
+  function getDescription(description) {
+    let words = description.split(' ');
+
+    if (words.length > 10) {
+      return words.slice(0, 10).join(' ') + ' ...';
+    } else {
+      return description;
+    }
+  }
   return (
     <Box>
       <Link to={`/streamer/${streamer._id}`}>
@@ -18,9 +27,7 @@ const StreamerBox = ({ streamer, handleVote }) => {
       </Link>
 
       <Platform>{streamer.platform}</Platform>
-      <Description>
-        {streamer.description.split(' ').slice(0, 10).join(' ')}
-      </Description>
+      <Description>{getDescription(streamer.description)}</Description>
 
       <LikesWrapper>
         <LikesItem onClick={() => handleVote(streamer._id, true)}>
